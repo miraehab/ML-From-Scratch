@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 class LinearRegression:
     """
@@ -25,7 +26,7 @@ class LinearRegression:
         Used for inference
     
     """
-    def __init__(self, learning_rate = 0.001, nb_iters = 1000):
+    def __init__(self, learning_rate = 0.0001, nb_iters = 1000):
         """
         Constructs all the necessary attributes for the LinearRegression object.
 
@@ -57,10 +58,10 @@ class LinearRegression:
                 The total number of samples thaat are being used for trainning.
         """
 
-        y_pred = np.dot(self.weights, X) + self.bias
+        y_pred = np.dot(self.weights, np.transpose(X)) + self.bias
         
         # Gradients
-        dw = (1/nb_samples) * np.dot(X, (y_pred - y))
+        dw = (1/nb_samples) * np.dot(np.transpose(X), (y_pred - y))
         db = (1/nb_samples) * np.sum((y_pred - y))
 
         # Update the Weights and bias
@@ -79,6 +80,7 @@ class LinearRegression:
                 The true values of each sample.
         """
 
+        X = pd.DataFrame(X)
         nb_samples, nb_features = X.shape
 
         self.weights = np.zeros(nb_features)
@@ -99,6 +101,7 @@ class LinearRegression:
                 The Dataset that we want to predict the value of the target for.
         """
 
-        y_pred = np.dot(self.weights, X) + self.bias
+        X = pd.DataFrame(X)
+        y_pred = np.dot(self.weights, np.transpose(X)) + self.bias
 
         return y_pred
