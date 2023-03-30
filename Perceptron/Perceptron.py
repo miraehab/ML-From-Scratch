@@ -64,17 +64,24 @@ class Perceptron:
         # init weights
         # the number of features is the size of the input layer
         # we initialize the weights randomly because this helps in breaking symmetry and every neuron is no longer performing the same computation
-        self.weights = np.random.rand(nb_features-1, nb_features)*0.01
-        self.bias = 0
+        self.weights = np.random.randn(nb_features)
+        self.bias = np.random.randn(1)
+        errors = 0
 
         for j in range(self.nb_iters):
             for i in range(nb_samples):
                 linear_output = np.dot(X[i], np.transpose(self.weights)) + self.bias
                 y_pred = self.activation_func(linear_output)
 
-                # Update Weights and Bias
+                # Update Weights and bias
+                update = self.learning_rate * (y[j] - y_pred)
                 self.weights += self.learning_rate * (y[i] - y_pred) * X[i]
                 self.bias += self.learning_rate * (y[i] - y_pred)
+
+                errors += int(update != 0.0)
+
+            if errors == 0:
+                break
 
 
 
