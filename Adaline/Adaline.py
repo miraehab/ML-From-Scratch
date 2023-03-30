@@ -67,7 +67,7 @@ class Adaline:
         # init weights
         # the number of features is the size of the input layer
         # we initialize the weights randomly because this helps in breaking symmetry and every neuron is no longer performing the same computation
-        self.weights = np.random.rand(nb_features-1, nb_features)*0.01
+        self.weights = np.random.randn(nb_features)
         self.bias = 0
 
         for j in range(self.nb_iters):
@@ -76,11 +76,8 @@ class Adaline:
                 y_pred = self.activation_func(linear_output)
 
                 # Update Weights and Bias
-                self.weights += self.learning_rate * ((y[i] - y_pred) * X[i]).sum()
-                self.bias += self.learning_rate * (y[i] - y_pred).sum()
-
-
-
+                self.weights += self.learning_rate * ((y[i] - y_pred)*X[i])
+                self.bias += self.learning_rate * (self.bias*(y[i] - y_pred))
 
     def predict(self, X):
         """
@@ -90,7 +87,7 @@ class Adaline:
             X : array of float
                 The Dataset that we want to predict the value of the target for.
         """
-        linear_output = np.dot(X, np.transpose(self.weights)) + self.bias
+        linear_output = np.dot(X, np.transpose(self.weights))+ self.bias
         y_pred = []
         for i in linear_output:
             y_pred.append(unit_step_function(i))
