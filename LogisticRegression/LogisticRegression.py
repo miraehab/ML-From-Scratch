@@ -86,11 +86,22 @@ class LogisticRegression:
         self.weights = np.zeros(nb_features)
         self.bias = 0
 
+        ''' use Gradient Descent '''
+
         for i in range(self.nb_iters):
             self.gradient_descent(X, y, nb_samples)
 
 
     def predict(self, X):
+        """
+        Predict the class for given data.
+
+        Parameters
+        ----------
+            X : array of float
+                The Dataset that we want to predict the class of it.
+        """
+
         linear_pred = np.dot(self.weights, np.transpose(X)) + self.bias
         y_pred = sigmoid(linear_pred) 
 
