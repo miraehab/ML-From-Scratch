@@ -6,9 +6,7 @@ def sigmoid(linear_pred):
 class LogisticRegression:
     """
     A class to use Logistic regression to classify the data.
-
     ...
-
     Attributes
     ----------
     learning_rate : float
@@ -19,7 +17,6 @@ class LogisticRegression:
         Tells the software how important the feature should be in the model fit.
     bias : float
         The tendency of the regression result to land consistently offset from the origin.
-
     Methods
     -------
     fit():
@@ -28,10 +25,9 @@ class LogisticRegression:
         Used for inference
     
     """
-    def __init(self, learning_rate = 0.001, nb_iters = 1000):
+    def __init__(self, learning_rate = 0.001, nb_iters = 1000):
         """
         Constructs all the necessary attributes for the LogisticRegression object.
-
         Parameters
         ----------
             learning_rate : float
@@ -48,7 +44,6 @@ class LogisticRegression:
     def gradient_descent(self, X, y, nb_samples):
         """
         Finds the best-fit line for a given training dataset
-
         Parameters
         ----------
             X : array of float
@@ -73,7 +68,6 @@ class LogisticRegression:
     def fit(self, X, y):
         """
         Train the model using Gradient Descent.
-
         Parameters
         ----------
             X : array of float
@@ -95,7 +89,6 @@ class LogisticRegression:
     def predict(self, X):
         """
         Predict the class for given data.
-
         Parameters
         ----------
             X : array of float
