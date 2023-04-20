@@ -60,24 +60,27 @@ class Adaline:
             y : array of float
                 The true values of each sample.
         """
-         
-        #X = pd.DataFrame(X)
-        nb_samples, nb_features = X.shape
 
         # init weights
         # the number of features is the size of the input layer
         # we initialize the weights randomly because this helps in breaking symmetry and every neuron is no longer performing the same computation
-        self.weights = np.random.randn(nb_features)
-        self.bias = 0
+        self.weights = np.random.rand(X.shape[1] + 1)
+        
+        # Add bias term to X
+        X = np.insert(X, 0, 1, axis=1)
 
-        for j in range(self.nb_iters):
-            for i in range(nb_samples):
-                linear_output = np.dot(X[i], np.transpose(self.weights)) + self.bias
-                y_pred = self.activation_func(linear_output)
-
-                # Update Weights and Bias
-                self.weights += self.learning_rate * ((y[i] - y_pred)*X[i])
-                self.bias += self.learning_rate * (self.bias*(y[i] - y_pred))
+        for i in range(self.n_iterations):
+            # Calculate net input
+            net_input = np.dot(X, self.weights)
+            
+            # Calculate output
+            output = self.activation(net_input)
+            
+            # Calculate error
+            error = y - output
+            
+            # Update weights
+            self.weights += self.learning_rate * np.dot(X.T, error)
 
     def predict(self, X):
         """
